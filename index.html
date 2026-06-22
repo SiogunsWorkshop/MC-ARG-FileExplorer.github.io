@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Explorer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="desktop">
+        <div id="window">
+            <div id="titlebar">
+                <div id="titlebar-left">
+                    <span id="titlebar-icon" aria-hidden="true">🗂️</span>
+                    <span id="titlebar-title">File Explorer</span>
+                </div>
+                <div id="titlebar-controls" aria-hidden="true">
+                    <button class="ctrl-btn" title="Minimize">&#x2212;</button>
+                    <button class="ctrl-btn" title="Maximize">&#x25A1;</button>
+                    <button class="ctrl-btn ctrl-close" title="Close">&#x2715;</button>
+                </div>
+            </div>
+
+            <nav id="menubar" aria-label="Menu bar">
+                <span class="menu-item" tabindex="0">File</span>
+                <span class="menu-item" tabindex="0">Edit</span>
+                <span class="menu-item" tabindex="0">View</span>
+                <span class="menu-item" tabindex="0">Favorites</span>
+                <span class="menu-item" tabindex="0">Tools</span>
+                <span class="menu-item" tabindex="0">Help</span>
+            </nav>
+
+            <div id="toolbar">
+                <button class="tool-btn" id="btn-back" disabled title="Back">
+                    &#x2190; <span class="btn-label">Back</span>
+                </button>
+                <button class="tool-btn" id="btn-up" disabled title="Up one level">
+                    &#x2191; <span class="btn-label">Up</span>
+                </button>
+                <div id="address-box">
+                    <label for="address-bar" class="address-label">Address</label>
+                    <div id="address-bar" role="textbox" aria-readonly="true" aria-label="Current path"></div>
+                </div>
+            </div>
+
+            <div id="explorer-body">
+                <div id="tree-panel" aria-label="Folder tree">
+                    <div class="panel-header">Folders</div>
+                    <div id="tree" role="tree"></div>
+                </div>
+
+                <div id="splitter" role="separator" aria-orientation="vertical"></div>
+
+                <div id="content-panel" aria-label="Contents">
+                    <div id="content-header">
+                        <span class="col-name">Name</span>
+                        <span class="col-type">Type</span>
+                        <span class="col-size">Size</span>
+                    </div>
+                    <div id="content-area">
+                        <!-- filled by script.js -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="statusbar">
+                <span id="status-msg">Loading…</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

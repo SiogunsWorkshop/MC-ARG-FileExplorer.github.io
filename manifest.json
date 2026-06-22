@@ -1,0 +1,38 @@
+{
+  "name": "file-explorer-content",
+  "type": "folder",
+  "children": [
+    {
+      "name": "README.txt",
+      "type": "file",
+      "path": "file-explorer-content/README.txt"
+    },
+    {
+      "name": "logs",
+      "type": "folder",
+      "children": [
+        {
+          "name": "entry_001.txt",
+          "type": "file",
+          "path": "file-explorer-content/logs/entry_001.txt"
+        },
+        {
+          "name": "entry_002.txt",
+          "type": "file",
+          "path": "file-explorer-content/logs/entry_002.txt"
+        }
+      ]
+    },
+    {
+      "name": "classified",
+      "type": "folder",
+      "children": [
+        {
+          "name": "ACCESS_DENIED.txt",
+          "type": "file",
+          "path": "file-explorer-content/classified/ACCESS_DENIED.txt"
+        }
+      ]
+    }
+  ]
+}
