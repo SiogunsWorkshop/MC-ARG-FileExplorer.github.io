@@ -96,14 +96,14 @@
       ]
     },
     {
-      "name": "Archiwum E",
+      "name": "finał",
       "password": "bul-bul-nator",
       "type": "folder",
       "children": [
         {
           "name": "finał.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum E/finał.txt"
+          "path": "file-explorer-content/finał/świerk.txt"
         }
       ]
     }
