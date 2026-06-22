@@ -18,19 +18,19 @@
 'use strict';
 
 /* ── State ─────────────────────────────────── */
-let rootNode      = null;         // root manifest node
-let selectedNode  = null;         // currently highlighted node
-let history       = [];           // navigation history (array of nodes)
-let historyIndex  = -1;           // current position in history
+let rootNode = null;         // root manifest node
+let selectedNode = null;         // currently highlighted node
+let history = [];           // navigation history (array of nodes)
+let historyIndex = -1;           // current position in history
 
 /* ── DOM refs ───────────────────────────────── */
-const treeEl       = document.getElementById('tree');
-const contentArea  = document.getElementById('content-area');
-const contentHdr   = document.getElementById('content-header');
-const addressBar   = document.getElementById('address-bar');
-const statusMsg    = document.getElementById('status-msg');
-const btnBack      = document.getElementById('btn-back');
-const btnUp        = document.getElementById('btn-up');
+const treeEl = document.getElementById('tree');
+const contentArea = document.getElementById('content-area');
+const contentHdr = document.getElementById('content-header');
+const addressBar = document.getElementById('address-bar');
+const statusMsg = document.getElementById('status-msg');
+const btnBack = document.getElementById('btn-back');
+const btnUp = document.getElementById('btn-up');
 
 /* ── Boot ───────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadManifest() {
     try {
-        const res = await fetch('manifest.json');
+        const res = await fetch('manifest.json?v=' + Date.now());
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         rootNode = await res.json();
         buildTree(rootNode);
@@ -85,7 +85,7 @@ function createTreeNode(node, depth, pathSoFar) {
     if (depth > 0) {
         const indent = document.createElement('span');
         indent.style.display = 'inline-block';
-        indent.style.width   = (depth * 16) + 'px';
+        indent.style.width = (depth * 16) + 'px';
         indent.style.flexShrink = '0';
         row.appendChild(indent);
     }
@@ -146,7 +146,7 @@ function createTreeNode(node, depth, pathSoFar) {
 
 function updateToggleIcon(row) {
     const childrenEl = row.parentElement.querySelector('.tree-children');
-    const toggle     = row.querySelector('.tree-toggle');
+    const toggle = row.querySelector('.tree-toggle');
     if (!toggle || !childrenEl) return;
     toggle.textContent = childrenEl.classList.contains('open') ? '▼' : '▶';
 }
@@ -182,7 +182,7 @@ function navigateUp() {
 function updateNav() {
     btnBack.disabled = historyIndex <= 0;
     const parent = selectedNode ? findParent(rootNode, selectedNode) : null;
-    btnUp.disabled   = !parent;
+    btnUp.disabled = !parent;
 }
 
 /* ── Rendering ──────────────────────────────── */
@@ -248,7 +248,7 @@ function renderFolder(node) {
 
         item.addEventListener('click', () => {
             document.querySelectorAll('.content-item.selected')
-                    .forEach(el => el.classList.remove('selected'));
+                .forEach(el => el.classList.remove('selected'));
             item.classList.add('selected');
         });
 
@@ -324,7 +324,7 @@ async function renderFile(node) {
 
 function markSelectedInTree(targetNode) {
     document.querySelectorAll('.tree-row.selected')
-            .forEach(el => el.classList.remove('selected'));
+        .forEach(el => el.classList.remove('selected'));
 
     for (const row of treeEl.querySelectorAll('.tree-row')) {
         if (row._manifestNode === targetNode) {
@@ -393,10 +393,10 @@ function nodeIcon(node) {
     const ext = extension(node.name);
     if (isImageExt(ext)) return '🖼️';
     if (ext === 'txt') return '📄';
-    if (ext === 'md')       return '📝';
-    if (ext === 'json')     return '📋';
+    if (ext === 'md') return '📝';
+    if (ext === 'json') return '📋';
     if (ext === 'html' || ext === 'htm') return '🌐';
-    if (ext === 'pdf')      return '📕';
+    if (ext === 'pdf') return '📕';
     if (ext === 'zip' || ext === 'tar' || ext === 'gz') return '🗜️';
     return '📄';
 }
