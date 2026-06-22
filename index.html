@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Explorer</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="desktop">
         <div id="window">
@@ -69,6 +71,24 @@
         </div>
     </div>
 
+    <!-- Password Modal -->
+    <div id="password-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modal-title">Enter Password</span>
+            </div>
+            <div class="modal-body">
+                <input type="password" id="password-input" placeholder="Enter password" />
+                <div id="password-error" class="password-error hidden"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="password-submit" class="modal-btn">OK</button>
+                <button id="password-cancel" class="modal-btn cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
+
 </html>

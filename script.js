@@ -22,6 +22,7 @@ let rootNode = null;         // root manifest node
 let selectedNode = null;         // currently highlighted node
 let history = [];           // navigation history (array of nodes)
 let historyIndex = -1;           // current position in history
+let unlockedFolders = new Set();  // tracks unlocked protected folders (by path)
 
 /* ── DOM refs ───────────────────────────────── */
 const treeEl = document.getElementById('tree');
@@ -31,11 +32,21 @@ const addressBar = document.getElementById('address-bar');
 const statusMsg = document.getElementById('status-msg');
 const btnBack = document.getElementById('btn-back');
 const btnUp = document.getElementById('btn-up');
+const passwordModal = document.getElementById('password-modal');
+const passwordInput = document.getElementById('password-input');
+const passwordError = document.getElementById('password-error');
+const passwordSubmit = document.getElementById('password-submit');
+const passwordCancel = document.getElementById('password-cancel');
 
 /* ── Boot ───────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
     btnBack.addEventListener('click', navigateBack);
     btnUp.addEventListener('click', navigateUp);
+    passwordSubmit.addEventListener('click', handlePasswordSubmit);
+    passwordCancel.addEventListener('click', hidePasswordModal);
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handlePasswordSubmit();
+    });
     loadManifest();
 });
 
@@ -44,6 +55,8 @@ async function loadManifest() {
         const res = await fetch('manifest.json?v=' + Date.now());
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         rootNode = await res.json();
+        // Load previously unlocked folders from cookies
+        loadUnlockedFromCookie();
         buildTree(rootNode);
         navigateTo(rootNode);
         setStatus(`${countFiles(rootNode)} object(s) loaded.`);
@@ -153,7 +166,14 @@ function updateToggleIcon(row) {
 
 /* ── Navigation ─────────────────────────────── */
 
-function navigateTo(node) {
+async function navigateTo(node) {
+    // Check if folder is password protected
+    if (node.type === 'folder' && node.password && !isNodeUnlocked(node)) {
+        await promptForPassword(node);
+        // If still not unlocked, don't navigate
+        if (!isNodeUnlocked(node)) return;
+    }
+
     // Push to history
     if (historyIndex < history.length - 1) {
         history = history.slice(0, historyIndex + 1);
@@ -310,7 +330,13 @@ async function renderFile(node) {
     try {
         const res = await fetch(node.path);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const text = await res.text();
+        let text = await res.text();
+
+        // Apply cipher if specified
+        if (node.cipher) {
+            text = applyCipher(text, node.cipher);
+        }
+
         body.textContent = text;
         setStatus(node.name);
     } catch (err) {
@@ -389,7 +415,13 @@ function countFiles(node) {
 }
 
 function nodeIcon(node) {
-    if (node.type === 'folder') return '📁';
+    if (node.type === 'folder') {
+        // Show lock icon only if password-protected AND not unlocked
+        if (node.password && !isNodeUnlocked(node)) {
+            return '🔒';
+        }
+        return '📁';
+    }
     const ext = extension(node.name);
     if (isImageExt(ext)) return '🖼️';
     if (ext === 'txt') return '📄';
@@ -432,4 +464,214 @@ function escapeHtml(str) {
 
 function setStatus(msg) {
     statusMsg.textContent = msg;
+}
+
+/* ── Password Protection ────────────────────── */
+
+/**
+ * Get a unique key for a node based on its path
+ */
+function getNodeKey(node) {
+    const path = buildPathTo(node, node);
+    return path ? path.map(n => n.name).join('/') : node.name;
+}
+
+/**
+ * Set a cookie
+ */
+function setCookie(name, value, days = 365) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+}
+
+/**
+ * Get a cookie value
+ */
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.indexOf(nameEQ) === 0) {
+            return decodeURIComponent(cookie.substring(nameEQ.length));
+        }
+    }
+    return null;
+}
+
+/**
+ * Save unlocked folders to cookie
+ */
+function saveUnlockedToCookie() {
+    const keys = Array.from(unlockedFolders);
+    setCookie('unlockedFolders', keys.join('|'), 365);
+}
+
+/**
+ * Load unlocked folders from cookie
+ */
+function loadUnlockedFromCookie() {
+    const saved = getCookie('unlockedFolders');
+    if (saved) {
+        const keys = saved.split('|');
+        unlockedFolders = new Set(keys);
+    }
+}
+
+/**
+ * Check if a password-protected node has been unlocked
+ */
+function isNodeUnlocked(node) {
+    if (!node.password) return true;
+    const key = getNodeKey(node);
+    return unlockedFolders.has(key);
+}
+
+/**
+ * Mark a node as unlocked
+ */
+function unlockNode(node) {
+    const key = getNodeKey(node);
+    unlockedFolders.add(key);
+    saveUnlockedToCookie();
+}
+
+/**
+ * Prompt user for password
+ */
+async function promptForPassword(node) {
+    return new Promise((resolve) => {
+        passwordInput.value = '';
+        passwordError.textContent = '';
+        passwordError.classList.add('hidden');
+        document.getElementById('modal-title').textContent = `Password required for "${node.name}"`;
+
+        // Store the node and resolve callback for the submit handler
+        passwordModal.dataset.targetNode = JSON.stringify({ name: node.name, password: node.password });
+        passwordModal.dataset.resolveCallback = true;
+        window._passwordResolve = resolve;
+
+        showPasswordModal();
+    });
+}
+
+/**
+ * Handle password submission
+ */
+function handlePasswordSubmit() {
+    const nodeData = JSON.parse(passwordModal.dataset.targetNode || '{}');
+    const inputPassword = passwordInput.value;
+
+    if (inputPassword === nodeData.password) {
+        // Password correct - find the actual node and unlock it
+        const targetNode = findNodeByName(rootNode, nodeData.name);
+        if (targetNode) {
+            unlockNode(targetNode);
+            updateTreeIcon(targetNode);  // Update the icon in the tree
+        }
+        hidePasswordModal();
+        if (window._passwordResolve) {
+            window._passwordResolve();
+            delete window._passwordResolve;
+        }
+    } else {
+        // Password incorrect
+        passwordError.textContent = 'Incorrect password. Try again.';
+        passwordError.classList.remove('hidden');
+        passwordInput.value = '';
+        passwordInput.focus();
+    }
+}
+
+/**
+ * Find a node by name in the tree (for re-locating after unlock)
+ */
+function findNodeByName(node, name, visitedNames = []) {
+    if (node.name === name && !visitedNames.includes(name)) {
+        return node;
+    }
+    if (node.children) {
+        for (const child of node.children) {
+            const result = findNodeByName(child, name, [...visitedNames, node.name]);
+            if (result) return result;
+        }
+    }
+    return null;
+}
+
+/**
+ * Show password modal
+ */
+function showPasswordModal() {
+    passwordModal.classList.remove('hidden');
+    passwordInput.focus();
+}
+
+/**
+ * Hide password modal
+ */
+function hidePasswordModal() {
+    passwordModal.classList.add('hidden');
+    delete passwordModal.dataset.targetNode;
+    delete passwordModal.dataset.resolveCallback;
+}
+
+/**
+ * Update tree icon for a specific node (used when unlocking)
+ */
+function updateTreeIcon(node) {
+    for (const row of treeEl.querySelectorAll('.tree-row')) {
+        if (row._manifestNode === node) {
+            const icon = row.querySelector('.tree-icon');
+            if (icon) {
+                icon.textContent = nodeIcon(node);
+            }
+            break;
+        }
+    }
+}
+
+/* ── Cipher Decoding ────────────────────────── */
+
+/**
+ * Apply cipher to text
+ * Format: "cipher.param" where cipher is the type and param depends on cipher
+ * Examples: "caesar.3", "caesar.5"
+ */
+function applyCipher(text, cipherSpec) {
+    if (!cipherSpec || typeof cipherSpec !== 'string') return text;
+
+    const [type, param] = cipherSpec.split('.');
+
+    if (type === 'caesar') {
+        const shift = parseInt(param) || 0;
+        return caesarDecipher(text, shift);
+    }
+
+    return text;
+}
+
+/**
+ * Caesar cipher decoder
+ * Shifts letters backward by the given amount to decode text encrypted with forward shift
+ */
+function caesarDecipher(text, shift) {
+    return text.split('').map(char => {
+        // Handle uppercase letters
+        if (char >= 'A' && char <= 'Z') {
+            const code = char.charCodeAt(0) - 'A'.charCodeAt(0);
+            const shifted = (code - shift + 26) % 26;
+            return String.fromCharCode(shifted + 'A'.charCodeAt(0));
+        }
+        // Handle lowercase letters
+        if (char >= 'a' && char <= 'z') {
+            const code = char.charCodeAt(0) - 'a'.charCodeAt(0);
+            const shifted = (code - shift + 26) % 26;
+            return String.fromCharCode(shifted + 'a'.charCodeAt(0));
+        }
+        // Return non-letter characters unchanged
+        return char;
+    }).join('');
 }

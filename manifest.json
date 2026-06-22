@@ -7,50 +7,48 @@
       "type": "folder",
       "children": [
         {
-          "name": "dziennik.txt",
+          "name": "ROT13.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum A/dziennik.txt"
+          "path": "file-explorer-content/Archiwum A/ROT13.txt",
+          "cipher": "caesar.13"
         }
       ]
     },
     {
       "name": "Archiwum B",
       "type": "folder",
+      "password": "p0-Ke-m0N",
       "children": [
         {
-          "name": "babel.txt",
+          "name": "1.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/babel.txt"
+          "path": "file-explorer-content/Archiwum B/1.png"
         },
         {
-          "name": "hexagon.txt",
+          "name": "2.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/hexagon.txt"
+          "path": "file-explorer-content/Archiwum B/2.png"
         },
         {
-          "name": "półka.txt",
+          "name": "3.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/półka.txt"
+          "path": "file-explorer-content/Archiwum B/3.png"
         },
         {
-          "name": "ściana.txt",
+          "name": "4.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/ściana.txt"
+          "path": "file-explorer-content/Archiwum B/4.png"
         },
         {
-          "name": "strona.txt",
+          "name": "5.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/strona.txt"
-        },
-        {
-          "name": "tom.txt",
-          "type": "file",
-          "path": "file-explorer-content/Archiwum B/tom.txt"
+          "path": "file-explorer-content/Archiwum B/5.png"
         }
       ]
     },
     {
       "name": "Archiwum C",
+      "password": "I-C-U",
       "type": "folder",
       "children": [
         {
@@ -62,37 +60,44 @@
     },
     {
       "name": "Archiwum D",
+      "password": "z@ch0d",
       "type": "folder",
       "children": [
         {
-          "name": "1.png",
+          "name": "babel.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/1.png"
+          "path": "file-explorer-content/Archiwum D/babel.txt"
         },
         {
-          "name": "2.png",
+          "name": "hexagon.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/2.png"
+          "path": "file-explorer-content/Archiwum D/hexagon.txt"
         },
         {
-          "name": "3.png",
+          "name": "półka.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/3.png"
+          "path": "file-explorer-content/Archiwum D/półka.txt"
         },
         {
-          "name": "4.png",
+          "name": "ściana.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/4.png"
+          "path": "file-explorer-content/Archiwum D/ściana.txt"
         },
         {
-          "name": "5.png",
+          "name": "strona.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/5.png"
+          "path": "file-explorer-content/Archiwum D/strona.txt"
+        },
+        {
+          "name": "tom.txt",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum D/tom.txt"
         }
       ]
     },
     {
       "name": "Archiwum E",
+      "password": "bul-bul-nator",
       "type": "folder",
       "children": [
         {
