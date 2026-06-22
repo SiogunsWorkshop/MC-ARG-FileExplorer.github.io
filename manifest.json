@@ -3,95 +3,95 @@
   "type": "folder",
   "children": [
     {
-      "name": "Archiwum A",
+      "name": "tabetuje",
       "type": "folder",
       "children": [
         {
           "name": "ROT13.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum A/ROT13.txt",
+          "path": "file-explorer-content/tabetuje/ROT13.txt",
           "cipher": "caesar.13"
         }
       ]
     },
     {
-      "name": "Archiwum B",
+      "name": "oczy",
       "type": "folder",
       "password": "p0-Ke-m0N",
       "children": [
         {
           "name": "1.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/1.png"
+          "path": "file-explorer-content/oczy/1.png"
         },
         {
           "name": "2.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/2.png"
+          "path": "file-explorer-content/oczy/2.png"
         },
         {
           "name": "3.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/3.png"
+          "path": "file-explorer-content/oczy/3.png"
         },
         {
           "name": "4.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/4.png"
+          "path": "file-explorer-content/oczy/4.png"
         },
         {
           "name": "5.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum B/5.png"
+          "path": "file-explorer-content/oczy/5.png"
         }
       ]
     },
     {
-      "name": "Archiwum C",
+      "name": "zachód",
       "password": "I-C-U",
       "type": "folder",
       "children": [
         {
           "name": "v=.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum C/v=.txt"
+          "path": "file-explorer-content/zachód/v=.txt"
         }
       ]
     },
     {
-      "name": "Archiwum D",
+      "name": "biblioteka",
       "password": "z@ch0d",
       "type": "folder",
       "children": [
         {
           "name": "babel.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/babel.txt"
+          "path": "file-explorer-content/biblioteka/babel.txt"
         },
         {
           "name": "hexagon.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/hexagon.txt"
+          "path": "file-explorer-content/biblioteka/hexagon.txt"
         },
         {
           "name": "półka.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/półka.txt"
+          "path": "file-explorer-content/biblioteka/półka.txt"
         },
         {
           "name": "ściana.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/ściana.txt"
+          "path": "file-explorer-content/biblioteka/ściana.txt"
         },
         {
           "name": "strona.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/strona.txt"
+          "path": "file-explorer-content/biblioteka/strona.txt"
         },
         {
           "name": "tom.txt",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/tom.txt"
+          "path": "file-explorer-content/biblioteka/tom.txt"
         }
       ]
     },
