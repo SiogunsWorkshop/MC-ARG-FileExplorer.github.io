@@ -1,0 +1,6 @@
+# BOOK REWARD - Main Loop
+# Runs every tick via minecraft:tick
+
+execute as @a if entity @p[nbt={Inventory:[{id:"minecraft:book",components:{"minecraft:custom_name":'"z@ch0d"'}}]}] unless score @s siogun.arg.book.rewarded matches 1.. run tellraw @a [{"selector":"@s","color":"white"},{"text":" Siogun odblokowuje osiągnięcie ","color":"gray"},{"text":"[Zapomniane Wspomnienia]","color":"green","hoverEvent":{"action":"show_text","contents":[{"text":"Zapomniane Wspomnienia\n","color":"green","bold":true},{"text":"Znajdź pamiętnik podróżnika zakopany na skraju wyspy.","color":"gray","bold":false}]}}]
+execute as @a if entity @p[nbt={Inventory:[{id:"minecraft:book",components:{"minecraft:custom_name":'"z@ch0d"'}}]}] unless score @s siogun.arg.book.rewarded matches 1.. run give @s minecraft:structure_void[minecraft:custom_name='{"text":"Reward Token"}'] 1
+execute as @a if entity @p[nbt={Inventory:[{id:"minecraft:book",components:{"minecraft:custom_name":'"z@ch0d"'}}]}] unless score @s siogun.arg.book.rewarded matches 1.. run scoreboard players set @s siogun.arg.book.rewarded 1
