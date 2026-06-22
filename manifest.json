@@ -3,13 +3,13 @@
   "type": "folder",
   "children": [
     {
-      "name": "tabetuje",
+      "name": "tabebuje",
       "type": "folder",
       "children": [
         {
           "name": "ROT13.txt",
           "type": "file",
-          "path": "file-explorer-content/tabetuje/ROT13.txt",
+          "path": "file-explorer-content/tabebuje/ROT13.txt",
           "cipher": "caesar.13"
         }
       ]
