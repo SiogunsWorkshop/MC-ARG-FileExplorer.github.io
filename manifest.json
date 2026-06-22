@@ -65,29 +65,29 @@
       "type": "folder",
       "children": [
         {
-          "name": "1",
+          "name": "1.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/1"
+          "path": "file-explorer-content/Archiwum D/1.png"
         },
         {
-          "name": "2",
+          "name": "2.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/2"
+          "path": "file-explorer-content/Archiwum D/2.png"
         },
         {
-          "name": "3",
+          "name": "3.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/3"
+          "path": "file-explorer-content/Archiwum D/3.png"
         },
         {
-          "name": "4",
+          "name": "4.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/4"
+          "path": "file-explorer-content/Archiwum D/4.png"
         },
         {
-          "name": "5",
+          "name": "5.png",
           "type": "file",
-          "path": "file-explorer-content/Archiwum D/5"
+          "path": "file-explorer-content/Archiwum D/5.png"
         }
       ]
     },
