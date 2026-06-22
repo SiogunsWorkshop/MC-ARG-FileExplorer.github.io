@@ -3,34 +3,102 @@
   "type": "folder",
   "children": [
     {
-      "name": "README.txt",
-      "type": "file",
-      "path": "file-explorer-content/README.txt"
-    },
-    {
-      "name": "logs",
+      "name": "Archiwum A",
       "type": "folder",
       "children": [
         {
-          "name": "entry_001.txt",
+          "name": "dziennik.txt",
           "type": "file",
-          "path": "file-explorer-content/logs/entry_001.txt"
-        },
-        {
-          "name": "entry_002.txt",
-          "type": "file",
-          "path": "file-explorer-content/logs/entry_002.txt"
+          "path": "file-explorer-content/Archiwum A/dziennik.txt"
         }
       ]
     },
     {
-      "name": "classified",
+      "name": "Archiwum B",
       "type": "folder",
       "children": [
         {
-          "name": "ACCESS_DENIED.txt",
+          "name": "babel.txt",
           "type": "file",
-          "path": "file-explorer-content/classified/ACCESS_DENIED.txt"
+          "path": "file-explorer-content/Archiwum B/babel.txt"
+        },
+        {
+          "name": "hexagon.txt",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum B/hexagon.txt"
+        },
+        {
+          "name": "półka.txt",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum B/półka.txt"
+        },
+        {
+          "name": "ściana.txt",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum B/ściana.txt"
+        },
+        {
+          "name": "strona.txt",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum B/strona.txt"
+        },
+        {
+          "name": "tom.txt",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum B/tom.txt"
+        }
+      ]
+    },
+    {
+      "name": "Archiwum C",
+      "type": "folder",
+      "children": [
+        {
+          "name": "v=.txt",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum C/v=.txt"
+        }
+      ]
+    },
+    {
+      "name": "Archiwum D",
+      "type": "folder",
+      "children": [
+        {
+          "name": "1",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum D/1"
+        },
+        {
+          "name": "2",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum D/2"
+        },
+        {
+          "name": "3",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum D/3"
+        },
+        {
+          "name": "4",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum D/4"
+        },
+        {
+          "name": "5",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum D/5"
+        }
+      ]
+    },
+    {
+      "name": "Archiwum E",
+      "type": "folder",
+      "children": [
+        {
+          "name": "finał.txt",
+          "type": "file",
+          "path": "file-explorer-content/Archiwum E/finał.txt"
         }
       ]
     }
